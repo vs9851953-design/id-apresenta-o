@@ -1,0 +1,331 @@
+/* ==========================================================
+   VTD DESIGN — Estilos da apresentação
+   Layout horizontal (desktop) e vertical (celular/tablet retrato).
+   Cores e fontes em variáveis; as transições são aplicadas por JS.
+   ========================================================== */
+
+:root {
+  --laranja: #FF5A00;
+  --preto: #0A0A0A;
+  --pad: clamp(20px, 4vw, 64px);
+  --fonte-titulo: "Varien", "Arial Black", Impact, sans-serif;
+  --fonte-texto: "Montserrat VTD", Montserrat, Arial, sans-serif;
+  --tinta: #FFFFFF;
+}
+body[data-tema="branca"] { --tinta: #0A0A0A; }
+
+/* Fontes já presentes no projeto Feed e Stories.
+   Agressive e Nexa ainda não foram enviadas (ver README). */
+@font-face {
+  font-family: "Varien";
+  src: url("../assets/fonts/Varien.otf") format("opentype");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Montserrat VTD";
+  src: url("../assets/fonts/Montserrat-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-display: swap;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--preto);
+  color: var(--tinta);
+  font-family: var(--fonte-texto);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+button, a { font: inherit; color: inherit; }
+button { cursor: pointer; border: 0; background: none; padding: 0; }
+img { display: block; max-width: none; }
+
+/* ---------- Palco e telas ---------- */
+.palco {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: opacity .25s ease;
+}
+.tela {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  visibility: hidden;
+}
+.tela.ativa, .tela.transicao { visibility: visible; }
+.tela.transicao { will-change: transform, opacity, clip-path; }
+
+.tela-laranja { background: var(--laranja); --linha: rgba(255, 255, 255, .12); color: #fff; }
+.tela-branca  { background: #fff; --linha: rgba(0, 0, 0, .05); color: #0A0A0A; }
+
+.fundo-linhas {
+  position: absolute;
+  inset: -10%;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(135deg, var(--linha) 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(45deg, var(--linha) 0 1px, transparent 1px 34px);
+}
+
+/* ---------- Layout comum ---------- */
+.conteudo {
+  position: absolute;
+  inset: 0;
+  padding: var(--pad);
+  display: grid;
+  grid-template-columns: minmax(0, 30%) minmax(0, 1fr);
+  gap: 3vw;
+  align-items: center;
+}
+.conteudo.centro {
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  align-content: center;
+  gap: 4vh;
+}
+.conteudo-topo {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  align-items: stretch;
+}
+.cabecalho { display: flex; flex-direction: column; gap: 3vh; min-width: 0; }
+
+.titulo {
+  margin: 0;
+  font-family: var(--fonte-titulo);
+  font-weight: 400;
+  font-size: clamp(48px, 7.4vw, 132px);
+  line-height: .92;
+  letter-spacing: -.01em;
+  text-transform: uppercase;
+}
+.descricao {
+  margin: 0;
+  max-width: 34ch;
+  font-weight: 700;
+  font-size: clamp(12px, 1.05vw, 16px);
+  line-height: 1.55;
+  text-transform: uppercase;
+}
+.pilula {
+  align-self: flex-start;
+  display: inline-block;
+  padding: .55em 1.6em .55em 1.2em;
+  border-radius: 0 999px 999px 0;
+  background: var(--laranja);
+  color: #fff;
+  font-family: var(--fonte-titulo);
+  font-size: clamp(18px, 2.2vw, 34px);
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+.tela-laranja .pilula { background: #fff; color: var(--laranja); }
+
+/* ---------- Slots de imagem (vazios até o PNG ser colocado) ---------- */
+.slot { position: relative; overflow: hidden; flex: 0 0 auto; }
+.slot img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;      /* gestos ficam com o palco; sem arrastar nativo de imagem */
+  -webkit-user-drag: none;
+}
+.slot-cover img { object-fit: cover; }
+.slot-contain img { object-fit: contain; }
+
+.slot-feed  { height: 70vh; aspect-ratio: 4 / 5; }
+.slot-story { height: 70vh; aspect-ratio: 9 / 16; }
+.slot-logo-abertura { width: min(70vw, calc(60vh * 1.88)); aspect-ratio: 1800 / 958; }
+.slot-versao { width: min(44vw, calc(56vh * 1.667)); aspect-ratio: 2000 / 1200; }
+.slot-rascunho { width: 24vw; aspect-ratio: 3 / 2; }
+.slot-faixa { width: min(86vw, calc(70vh * 3.24)); aspect-ratio: 3240 / 1000; }
+.slot-mock { width: 100%; aspect-ratio: 3 / 2; }
+
+/* ---------- Galerias (Feed e Stories) ---------- */
+.bloco-galeria { position: relative; min-width: 0; width: 100%; }
+.galeria {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  touch-action: pan-x;
+  overscroll-behavior: contain;
+  padding: 2vh 0;
+}
+.galeria::-webkit-scrollbar { display: none; }
+.trilho { display: flex; gap: 2vw; width: max-content; padding: 0 2vw; }
+
+/* ---------- Telas específicas ---------- */
+.rascunhos { display: flex; align-items: center; justify-content: center; gap: 3vw; min-height: 0; }
+.mockups {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6vw;
+  width: min(50vw, 100%);
+  justify-self: center;
+}
+.tela-versao .conteudo { grid-template-columns: minmax(0, 1fr) minmax(0, 28%); }
+.tela-representacoes .cabecalho { align-self: center; }
+
+/* Abertura */
+.abertura {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4vh;
+  padding: 24px;
+  color: #fff;
+}
+.abertura:focus-visible { outline: 2px solid #fff; outline-offset: -12px; }
+.toque {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: .08em;
+  animation: pulsar 2.2s ease-in-out infinite;
+}
+.toque i { width: 18px; height: 18px; border-radius: 50%; background: #fff; }
+@keyframes pulsar { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
+
+/* Orçamento */
+.cta {
+  display: inline-block;
+  padding: 1.1em 2.4em;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--laranja);
+  font-weight: 700;
+  font-size: clamp(13px, 1.3vw, 18px);
+  letter-spacing: .03em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.cta:focus-visible { outline: 2px solid #fff; outline-offset: 4px; }
+
+/* ---------- Interface de navegação ---------- */
+.contador {
+  position: fixed;
+  z-index: 60;
+  top: 22px;
+  left: var(--pad);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--tinta);
+  pointer-events: none;
+  transition: color .5s ease;
+}
+.progresso {
+  position: fixed;
+  z-index: 60;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.progresso button {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--tinta);
+  opacity: .35;
+  transition: opacity .3s ease, transform .3s ease, background .5s ease;
+}
+.progresso button:hover { opacity: .7; }
+.progresso button[aria-current="step"] { opacity: 1; transform: scale(1.5); }
+.progresso button:focus-visible, .controles button:focus-visible {
+  outline: 2px solid var(--tinta);
+  outline-offset: 3px;
+}
+.controles {
+  position: fixed;
+  z-index: 60;
+  right: 18px;
+  bottom: 18px;
+  display: flex;
+  gap: 10px;
+}
+.controles button {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid var(--tinta);
+  color: var(--tinta);
+  display: grid;
+  place-items: center;
+  transition: color .5s ease, border-color .5s ease;
+}
+.controles svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ---------- Celular e tablet em retrato ---------- */
+@media (max-width: 719px), (orientation: portrait) and (max-width: 1100px) {
+  :root { --pad: 20px; }
+  .conteudo {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    align-content: stretch;
+    gap: 3vh;
+    padding-top: calc(var(--pad) + 44px + env(safe-area-inset-top, 0px));
+    padding-bottom: calc(var(--pad) + 112px + env(safe-area-inset-bottom, 0px));
+  }
+  .conteudo.centro { grid-template-rows: none; align-content: center; }
+  .conteudo-topo { grid-template-rows: auto minmax(0, 1fr); }
+  .titulo { font-size: clamp(40px, 15vw, 76px); }
+  .descricao { max-width: none; font-size: 12px; }
+  .bloco-galeria { align-self: center; }
+
+  .slot-feed  { height: min(50vh, 100vw); }
+  .slot-story { height: min(50vh, 120vw); }
+  .slot-logo-abertura { width: 76vw; }
+  .slot-versao { width: 80vw; }
+  .slot-faixa { width: 92vw; }
+
+  .rascunhos { flex-direction: column; gap: 3vh; }
+  .slot-rascunho { width: 62vw; }
+
+  .tela-versao .conteudo { grid-template-columns: minmax(0, 1fr); }
+  .tela-versao .cabecalho { align-self: end; }
+  .mockups { width: 90vw; gap: 2.4vw; }
+
+  .progresso {
+    top: auto;
+    bottom: 84px;
+    right: 50%;
+    transform: translateX(50%);
+    flex-direction: row;
+  }
+  .progresso button { width: 7px; height: 7px; }
+  .controles { right: 14px; bottom: calc(14px + env(safe-area-inset-bottom, 0px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toque { animation: none; }
+  .galeria { scroll-behavior: auto; }
+}

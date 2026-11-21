@@ -1,0 +1,3 @@
+{
+  "buildCommand": "node scripts/gerar-manifesto.mjs || echo 'Manifesto não regenerado; usando assets/manifesto.json existente.'"
+}

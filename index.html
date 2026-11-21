@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#FF5A00">
+  <meta name="description" content="Apresentação da identidade visual VTD DESIGN.">
+  <title>VTD DESIGN | Identidade Visual</title>
+  <link rel="stylesheet" href="css/apresentacao.css">
+</head>
+<body data-tema="laranja">
+
+<main class="palco" id="palco">
+
+  <!-- 1 · ABERTURA -->
+  <section class="tela tela-laranja" data-tela="0" style="z-index:1" aria-label="Abertura">
+    <div class="fundo-linhas"></div>
+    <button class="abertura" id="abertura" type="button">
+      <div class="slot slot-contain slot-logo-abertura" data-slot="abertura"></div>
+      <span class="toque"><i aria-hidden="true"></i><span id="abertura-texto"></span></span>
+    </button>
+  </section>
+
+  <!-- 2 · POST FEED -->
+  <section class="tela tela-branca" data-tela="1" style="z-index:2" aria-label="Post Feed">
+    <div class="fundo-linhas"></div>
+    <div class="conteudo">
+      <div class="cabecalho">
+        <h2 class="titulo" id="feed-titulo"></h2>
+        <p class="descricao" id="feed-descricao"></p>
+      </div>
+      <div class="bloco-galeria">
+        <div class="galeria"><div class="trilho" id="trilho-feed"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 · STORIES -->
+  <section class="tela tela-laranja" data-tela="2" style="z-index:3" aria-label="Stories">
+    <div class="fundo-linhas"></div>
+    <div class="conteudo">
+      <div class="cabecalho">
+        <h2 class="titulo" id="stories-titulo"></h2>
+        <p class="descricao" id="stories-descricao"></p>
+      </div>
+      <div class="bloco-galeria">
+        <div class="galeria"><div class="trilho" id="trilho-stories"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3-1 · RASCUNHOS APRESENTADOS -->
+  <section class="tela tela-branca" data-tela="3" style="z-index:4" aria-label="Rascunhos apresentados">
+    <div class="fundo-linhas"></div>
+    <div class="conteudo conteudo-topo">
+      <div class="cabecalho">
+        <span class="pilula" id="rascunhos-titulo"></span>
+      </div>
+      <div class="rascunhos">
+        <div class="slot slot-contain slot-rascunho" data-slot="rascunho" data-i="0"></div>
+        <div class="slot slot-contain slot-rascunho" data-slot="rascunho" data-i="1"></div>
+        <div class="slot slot-contain slot-rascunho" data-slot="rascunho" data-i="2"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3-2 · VERSÃO ESCOLHIDA -->
+  <section class="tela tela-laranja tela-versao" data-tela="4" style="z-index:5" aria-label="Versão escolhida">
+    <div class="fundo-linhas"></div>
+    <div class="conteudo">
+      <div class="slot slot-contain slot-versao" data-slot="versao"></div>
+      <div class="cabecalho">
+        <span class="pilula" id="versao-titulo"></span>
+        <p class="descricao" id="versao-texto"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 copiar · TIPOGRAFIA (composição completa em PNG) -->
+  <section class="tela tela-laranja" data-tela="5" style="z-index:6" aria-label="Escolha tipográfica">
+    <div class="fundo-linhas"></div>
+    <div class="conteudo centro">
+      <div class="slot slot-contain slot-faixa" data-slot="tipografia"></div>
+    </div>
+  </section>
+
+  <!-- 3 copiar 2 · PALETA (composição completa em PNG) -->
+  <section class="tela tela-branca" data-tela="6" style="z-index:7" aria-label="Paleta de cores">
+    <div class="fundo-linhas"></div>
+    <div class="conteudo centro">
+      <div class="slot slot-contain slot-faixa" data-slot="paleta"></div>
+    </div>
+  </section>
+
+  <!-- 3-3 · REPRESENTAÇÕES DIGITAIS -->
+  <section class="tela tela-branca tela-representacoes" data-tela="7" style="z-index:8" aria-label="Representações digitais">
+    <div class="fundo-linhas"></div>
+    <div class="conteudo">
+      <div class="cabecalho">
+        <span class="pilula" id="representacoes-titulo"></span>
+        <p class="descricao" id="representacoes-texto"></p>
+      </div>
+      <div class="mockups">
+        <div class="slot slot-cover slot-mock" data-slot="mockup" data-i="0"></div>
+        <div class="slot slot-cover slot-mock" data-slot="mockup" data-i="1"></div>
+        <div class="slot slot-cover slot-mock" data-slot="mockup" data-i="2"></div>
+        <div class="slot slot-cover slot-mock" data-slot="mockup" data-i="3"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4 · ORÇAMENTO -->
+  <section class="tela tela-laranja" data-tela="8" style="z-index:9" aria-label="Orçamento">
+    <div class="fundo-linhas"></div>
+    <div class="conteudo centro">
+      <div class="slot slot-contain slot-versao" data-slot="final"></div>
+      <a class="cta" id="final-botao" target="_blank" rel="noopener noreferrer"></a>
+    </div>
+  </section>
+
+</main>
+
+<div class="contador" id="contador" aria-live="polite"></div>
+<nav class="progresso" id="progresso" aria-label="Navegação entre telas"></nav>
+<div class="controles">
+  <button type="button" id="btn-anterior" aria-label="Tela anterior">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 15l6-6 6 6"/></svg>
+  </button>
+  <button type="button" id="btn-proximo" aria-label="Próxima tela">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
+  </button>
+  <button type="button" id="btn-tela-cheia" aria-label="Tela cheia">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+  </button>
+</div>
+
+<script src="js/config.js"></script>
+<script src="js/transicoes.js"></script>
+<script src="js/navegacao.js"></script>
+</body>
+</html>
